@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Nur Jame Mosque - Monthly Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, input, button, table, select, textarea { 
+            font-family: 'Times New Roman', Times, serif !important; 
+        }
+        /* Mobile-optimized touch inputs & center alignment */
+        table input {
+            text-align: center !important;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; padding: 0 !important; }
+            .print-container { box-shadow: none !important; border: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+            input, select { border: none !important; background: transparent !important; padding: 0 !important; appearance: none; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 p-2 sm:p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden print-container">
+        
+        <!-- Header Section -->
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-4 sm:p-6 text-white flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">🕌 Al Nur Jame Mosque</h1>
+                <p class="text-emerald-100 text-base font-semibold mt-1">Monthly Payment</p>
+                <p class="text-emerald-200 text-xs sm:text-sm mt-1 leading-relaxed">
+                    Hazi Chan Miah Maler Bari, South Raipur, Raipur, Lakshmipur, Bangladesh (ZIP: 3710)
+                </p>
+            </div>
+            
+            <!-- Mobile Responsive Toolbar Buttons -->
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 no-print">
+                <button onclick="addRow()" class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Add Row
+                </button>
+                <button onclick="exportBackup()" class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Backup
+                </button>
+                <label class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    Restore
+                    <input type="file" id="restoreFile" accept=".json" onchange="importBackup(event)" class="hidden">
+                </label>
+                <button onclick="window.print()" class="bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 font-semibold px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    Print / PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Notification Banner -->
+        <div id="toast" class="hidden bg-emerald-50 border-b border-emerald-100 text-emerald-800 px-4 sm:px-6 py-2.5 text-sm flex justify-between items-center no-print">
+            <span id="toastMessage">Changes saved successfully!</span>
+            <button onclick="hideToast()" class="text-emerald-600 hover:text-emerald-800 font-bold px-2">&times;</button>
+        </div>
+
+        <!-- Mobile Scrollable Spreadsheet Table -->
+        <div class="p-2 sm:p-6 overflow-x-auto max-h-[70vh] sm:max-h-none">
+            <table class="w-full border-collapse border border-slate-300 text-center text-sm sm:text-base">
+                <thead>
+                    <tr class="bg-emerald-600 text-white uppercase text-xs sm:text-sm tracking-wider sticky top-0 shadow-sm">
+                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center w-10 sm:w-16">#</th>
+                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Payment Date</th>
+                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Month-Year</th>
+                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Amount</th>
+                        <th class="border border-slate-300 px-2 py-3 text-center w-12 sm:w-20 no-print">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="divide-y divide-slate-200">
+                    <!-- Rows dynamic insertion -->
+                </tbody>
+                <tfoot>
+                    <tr class="bg-slate-100 font-bold text-slate-900 sticky bottom-0 border-t-2 border-emerald-600">
+                        <td colspan="3" class="border border-slate-300 px-4 py-3 text-center uppercase text-xs sm:text-sm tracking-wider">Total Sum:</td>
+                        <td id="totalAmount" class="border border-slate-300 px-4 py-3 text-center text-emerald-700 font-extrabold text-base sm:text-lg">0</td>
+                        <td class="border border-slate-300 px-2 py-3 no-print"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 py-3 text-xs text-slate-500 text-center sm:text-left">
+            <p>💡 Tip: Tap any cell to edit directly. Data auto-saves to your local browser.</p>
+        </div>
+
+    </div>
+
+    <script>
+        const defaultData = [
+            { month: "Jan-23", amount: 500, date: "28/12/2022" },
+            { month: "Feb-23", amount: 500, date: "28/12/2023" },
+            { month: "Mar-23", amount: 500, date: "28/12/2024" },
+            { month: "Apr-23", amount: 500, date: "28/12/2025" },
+            { month: "May-23", amount: 500, date: "28/12/2026" },
+            { month: "Jun-23", amount: 500, date: "28/12/2027" },
+            { month: "Jul-23", amount: 500, date: "31/07/2023" },
+            { month: "Aug-23", amount: 500, date: "31/07/2023" },
+            { month: "Sep-23", amount: 500, date: "31/07/2023" },
+            { month: "Oct-23", amount: 500, date: "31/07/2023" },
+            { month: "Nov-23", amount: 500, date: "31/07/2023" },
+            { month: "Dec-23", amount: 500, date: "31/07/2023" },
+            { month: "Jan-24", amount: 500, date: "19/03/2024" },
+            { month: "Feb-24", amount: 500, date: "19/03/2024" },
+            { month: "Mar-24", amount: 500, date: "19/03/2024" },
+            { month: "Apr-24", amount: 500, date: "04/04/2024" },
+            { month: "May-24", amount: 500, date: "10/06/2024" },
+            { month: "Jun-24", amount: 500, date: "10/06/2024" },
+            { month: "Jul-24", amount: 500, date: "10/06/2024" },
+            { month: "Aug-24", amount: 1000, date: "02/08/2024" },
+            { month: "Sep-24", amount: 1000, date: "19/09/2024" },
+            { month: "Oct-24", amount: 1000, date: "20/12/2024" },
+            { month: "Nov-24", amount: 1000, date: "20/12/2024" },
+            { month: "Dec-24", amount: 1000, date: "20/12/2024" },
+            { month: "Jan-25", amount: 1000, date: "20/12/2024" },
+            { month: "Feb-25", amount: 1000, date: "04/02/2025" },
+            { month: "Mar-25", amount: 1000, date: "23/3/2025" },
+            { month: "Apr-25", amount: 1000, date: "04/05/2025" },
+            { month: "May-25", amount: 1000, date: "04/05/2025" },
+            { month: "Jun-25", amount: 1000, date: "07/08/2025" },
+            { month: "Jul-25", amount: 1000, date: "07/08/2025" },
+            { month: "Aug-25", amount: 1000, date: "07/08/2025" },
+            { month: "Sep-25", amount: 1000, date: "07/08/2025" },
+            { month: "Oct-25", amount: 1000, date: "10/12/2025" },
+            { month: "Nov-25", amount: 1000, date: "10/12/2025" },
+            { month: "Dec-25", amount: 1000, date: "10/12/2025" },
+            { month: "Jan-26", amount: 1000, date: "17/04/2026" },
+            { month: "Feb-26", amount: 1000, date: "17/04/2026" },
+            { month: "Mar-26", amount: 1000, date: "17/04/2026" },
+            { month: "Apr-26", amount: 1000, date: "17/04/2026" },
+            { month: "May-26", amount: 1000, date: "17/04/2026" },
+            { month: "Jun-26", amount: 1000, date: "17/04/2026" },
+            { month: "Jul-26", amount: 1000, date: "04/10/2026" },
+            { month: "Aug-26", amount: 1000, date: "04/10/2026" },
+            { month: "Sep-26", amount: 1000, date: "04/10/2026" },
+            { month: "Oct-26", amount: 1000, date: "04/10/2026" },
+            { month: "Nov-26", amount: 0, date: "" },
+            { month: "Dec-26", amount: 0, date: "" },
+            { month: "Jan-27", amount: 0, date: "" },
+            { month: "Feb-27", amount: 0, date: "" },
+            { month: "Mar-27", amount: 0, date: "" },
+            { month: "Apr-27", amount: 0, date: "" },
+            { month: "May-27", amount: 0, date: "" },
+            { month: "Jun-27", amount: 0, date: "" },
+            { month: "Jul-27", amount: 0, date: "" },
+            { month: "Aug-27", amount: 0, date: "" },
+            { month: "Sep-27", amount: 0, date: "" },
+            { month: "Oct-27", amount: 0, date: "" },
+            { month: "Nov-27", amount: 0, date: "" },
+            { month: "Dec-27", amount: 0, date: "" },
+            { month: "Jan-28", amount: 0, date: "" }
+        ];
+
+        let records = [];
+
+        window.onload = function() {
+            loadFromStorage();
+            renderTable();
+        };
+
+        function loadFromStorage() {
+            const savedData = localStorage.getItem('payment_records_data');
+            if (savedData) {
+                try {
+                    records = JSON.parse(savedData);
+                } catch (e) {
+                    records = [...defaultData];
+                }
+            } else {
+                records = [...defaultData];
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('payment_records_data', JSON.stringify(records));
+            showToast("Auto-saved to browser storage.");
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            let totalSum = 0;
+
+            records.forEach((record, index) => {
+                const amt = parseFloat(record.amount) || 0;
+                totalSum += amt;
+
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50/60 hover:bg-slate-100/80';
+                
+                tr.innerHTML = `
+                    <td class="border border-slate-300 px-2 sm:px-4 py-2 text-center text-slate-400 text-xs">${index + 1}</td>
+                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
+                        <input type="text" value="${escapeHtml(record.date)}" 
+                            onchange="updateRecord(${index}, 'date', this.value)" 
+                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                    </td>
+                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
+                        <input type="text" value="${escapeHtml(record.month)}" 
+                            onchange="updateRecord(${index}, 'month', this.value)" 
+                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+                    </td>
+                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
+                        <input type="number" step="any" value="${record.amount}" 
+                            onchange="updateRecord(${index}, 'amount', this.value)" 
+                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition font-medium">
+                    </td>
+                    <td class="border border-slate-300 px-1 py-1.5 text-center no-print">
+                        <button onclick="deleteRow(${index})" title="Delete row" class="text-slate-400 hover:text-red-600 active:text-red-700 p-1 rounded transition">
+                            <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('totalAmount').textContent = totalSum.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
+        }
+
+        function updateRecord(index, field, value) {
+            records[index][field] = field === 'amount' ? (value === '' ? 0 : parseFloat(value)) : value;
+            saveToStorage();
+            renderTable();
+        }
+
+        function addRow() {
+            records.push({ month: "New Month", amount: 0, date: "" });
+            saveToStorage();
+            renderTable();
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function deleteRow(index) {
+            records.splice(index, 1);
+            saveToStorage();
+            renderTable();
+        }
+
+        function exportBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(records, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            const dateStr = new Date().toISOString().slice(0, 10);
+            downloadAnchor.setAttribute("download", `Al_Nur_Jame_Mosque_payments_${dateStr}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("Backup file downloaded successfully.");
+        }
+
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsedData = JSON.parse(e.target.result);
+                    if (Array.isArray(parsedData)) {
+                        records = parsedData;
+                        saveToStorage();
+                        renderTable();
+                        showToast("Data restored successfully from backup!");
+                    } else {
+                        alert("Invalid backup file format.");
+                    }
+                } catch (err) {
+                    alert("Error parsing backup JSON file.");
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const messageEl = document.getElementById('toastMessage');
+            messageEl.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        function hideToast() {
+            document.getElementById('toast').classList.add('hidden');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
