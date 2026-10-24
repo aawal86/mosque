@@ -1,310 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al Nur Jame Mosque - Monthly Payment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body, input, button, table, select, textarea { 
-            font-family: 'Times New Roman', Times, serif !important; 
-        }
-        /* Mobile-optimized touch inputs & center alignment */
-        table input {
-            text-align: center !important;
-        }
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; padding: 0 !important; }
-            .print-container { box-shadow: none !important; border: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
-            input, select { border: none !important; background: transparent !important; padding: 0 !important; appearance: none; }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Nur Jame Mosque - Monthly Payment</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@500;700&family=Noto+Kufi+Arabic:wght@600;800&family=Cormorant+Garamond:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1333;--navy-2:#14214f;--night:#050a20;--gold:#e0b84f;--gold-2:#f6e3a1;--ivory:#fbf8ef;--ink:#17203d;--muted:#6a7290;--line:#e6e1cf;--teal:#1fa88c;--danger:#c0453d;--display:'Playfair Display','Hind Siliguri',serif;--body:'Inter','Hind Siliguri',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--body);color:var(--ink);min-height:100vh;padding:14px;background:radial-gradient(circle at 15% 8%,rgba(255,255,255,.9) 0 1px,transparent 1.5px),radial-gradient(circle at 78% 14%,rgba(255,255,255,.8) 0 1px,transparent 1.5px),radial-gradient(circle at 42% 30%,rgba(246,227,161,.8) 0 1.2px,transparent 1.8px),radial-gradient(circle at 90% 55%,rgba(255,255,255,.7) 0 1px,transparent 1.5px),radial-gradient(circle at 8% 62%,rgba(246,227,161,.7) 0 1px,transparent 1.5px),linear-gradient(180deg,var(--night),var(--navy-2) 70%,#1d2f66);background-attachment:fixed}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button,input{font-family:inherit;color:inherit}
+.page{max-width:920px;margin:0 auto;border-radius:30px;overflow:hidden;background:var(--ivory);box-shadow:0 40px 80px -30px #000,0 0 0 1px rgba(224,184,79,.45)}
+.top{position:relative;text-align:center;color:#fff;padding:30px 20px 112px;background:radial-gradient(ellipse at 50% 100%,rgba(224,184,79,.45),transparent 60%),linear-gradient(180deg,var(--night),var(--navy) 55%,#1b2c64)}
+.moon{position:absolute;top:22px;right:7%;width:46px;height:46px;border-radius:50%;box-shadow:inset -14px -3px 0 0 var(--gold-2);transform:rotate(-20deg);filter:drop-shadow(0 0 12px rgba(246,227,161,.6))}
+.bism{font-family:'Noto Kufi Arabic','Reem Kufi','Amiri',sans-serif;font-weight:800;font-size:clamp(20px,6vw,56px);line-height:2;white-space:nowrap;background:linear-gradient(100deg,#d9b45a 0%,#fff1b8 30%,#e8cd86 55%,#c9a24b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))}
+.bism-bn{font-size:13.5px;color:#c4cce8}
+.divider{margin:14px auto 10px;color:var(--gold);display:flex;align-items:center;gap:12px;justify-content:center;max-width:320px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.divider::after{transform:scaleX(-1)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,6.5vw,48px);line-height:1.15}
+.sub{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2);margin-top:4px}
+.addr{font-size:12.5px;color:#aab4d6;margin-top:8px;position:relative;z-index:1}
+.sky{position:absolute;left:0;bottom:-1px;width:100%;height:96px;display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px;margin-top:-22px;position:relative}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 8px;text-align:center;box-shadow:0 12px 26px -16px rgba(10,19,51,.55)}
+.stat small{display:block;font-size:12px;color:var(--muted)}
+.stat b{display:block;font-family:var(--display);font-size:clamp(20px,4.6vw,30px);line-height:1.2;color:var(--navy-2);margin-top:2px}
+.stat.main{background:linear-gradient(160deg,var(--navy-2),var(--navy));border-color:var(--gold)}
+.stat.main small{color:#b7c1e3}.stat.main b{color:var(--gold-2)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:18px 16px 6px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--navy-2);background:transparent;color:var(--navy-2);font-weight:600;font-size:13.5px;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.btn:hover{background:var(--navy-2);color:#fff}.btn:active{transform:scale(.96)}
+.btn.solid{background:var(--gold);border-color:var(--gold);color:var(--night)}
+.btn.solid:hover{background:var(--gold-2);color:var(--night)}
+.btn svg{width:15px;height:15px}
+#toast{margin:8px 16px 0;padding:9px 14px;border-radius:12px;background:#e8edfb;color:var(--navy-2);font-size:13.5px;display:none;justify-content:space-between;align-items:center}
+#toast button{border:0;background:none;font-size:18px;cursor:pointer}
+.tbl-wrap{margin:12px 16px 16px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:auto;max-height:68vh}
+table{width:100%;border-collapse:collapse;text-align:center;min-width:420px}
+th{position:sticky;top:0;z-index:2;background:var(--navy);color:var(--gold-2);font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:.06em;padding:12px 8px}
+td{border-bottom:1px solid var(--line);padding:4px}
+tbody tr:nth-child(even){background:#f8f6ee}
+tbody tr:hover{background:#eef0fa}
+.n{color:var(--gold);font-family:var(--display);font-weight:700;width:40px;border-left:3px solid var(--gold)}
+td input{width:100%;text-align:center;border:0;background:transparent;padding:9px 4px;border-radius:8px;font-size:14.5px}
+td input:focus{background:#fff;box-shadow:0 0 0 2px var(--gold);outline:none}
+td input.amt{font-family:var(--display);font-weight:700;font-size:17px;color:var(--navy-2)}
+.del{border:0;background:none;color:#b3b7cb;cursor:pointer;padding:6px;border-radius:8px}
+.del:hover{color:var(--danger);background:#f8e6e4}
+.del svg{width:16px;height:16px;display:block}
+tfoot td{position:sticky;bottom:0;background:var(--ivory);border-top:2px solid var(--gold);padding:12px;font-weight:700}
+tfoot .t{font-family:var(--display);font-size:22px;color:var(--navy-2)}
+.empty{padding:36px 16px;color:var(--muted);text-align:center}
+.foot{padding:14px 16px 22px;text-align:center;font-size:12.5px;color:var(--muted)}
+.foot b{font-family:'Amiri',serif;font-size:19px;color:var(--navy-2);font-weight:400}
+@media(max-width:520px){body{padding:8px}.btn{padding:8px 12px;font-size:13px}.stat small{font-size:11px}.moon{right:5%;top:14px;width:36px;height:36px;box-shadow:inset -11px -2px 0 0 var(--gold-2)}}
+@media print{body{background:#fff!important;padding:0}.page{border-radius:0;box-shadow:none}.no-print,.moon,.sky,.divider{display:none!important}.top{background:#fff!important;color:#000;padding:0 0 10px}.top *{color:#000!important;text-shadow:none!important}.bism{background:none!important;-webkit-text-fill-color:#000!important;filter:none!important}.stats{margin-top:0}.tbl-wrap{max-height:none;border:0;overflow:visible}th{background:#eee!important;position:static}td input{border:0;appearance:none}}
+body{font-family:'Inter','Hind Siliguri',sans-serif}
+.stat b,.amt,td input.amt,tfoot .t,.n{font-family:'Inter','Hind Siliguri',sans-serif!important;font-variant-numeric:tabular-nums;font-weight:800}
+.sub{font-family:'Inter','Hind Siliguri',sans-serif;font-weight:600;font-size:13px}
+.bn .sub,.bn th{letter-spacing:0;text-transform:none}
+.bn th{font-family:'Hind Siliguri',sans-serif;font-size:15px}
+</style>
 </head>
-<body class="bg-slate-100 min-h-screen text-slate-800 p-2 sm:p-4 md:p-8">
-
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden print-container">
-        
-        <!-- Header Section -->
-        <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-4 sm:p-6 text-white flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
-            <div class="text-center md:text-left">
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">🕌 Al Nur Jame Mosque</h1>
-                <p class="text-emerald-100 text-base font-semibold mt-1">Monthly Payment</p>
-                <p class="text-emerald-200 text-xs sm:text-sm mt-1 leading-relaxed">
-                    Hazi Chan Miah Maler Bari, South Raipur, Raipur, Lakshmipur, Bangladesh (ZIP: 3710)
-                </p>
-            </div>
-            
-            <!-- Mobile Responsive Toolbar Buttons -->
-            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 no-print">
-                <button onclick="addRow()" class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Add Row
-                </button>
-                <button onclick="exportBackup()" class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Backup
-                </button>
-                <label class="bg-white/15 hover:bg-white/25 active:scale-95 text-white font-medium px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 border border-white/20 cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                    Restore
-                    <input type="file" id="restoreFile" accept=".json" onchange="importBackup(event)" class="hidden">
-                </label>
-                <button onclick="window.print()" class="bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 font-semibold px-3 py-2 rounded-lg text-sm transition flex items-center justify-center gap-1.5 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                    Print / PDF
-                </button>
-            </div>
-        </div>
-
-        <!-- Notification Banner -->
-        <div id="toast" class="hidden bg-emerald-50 border-b border-emerald-100 text-emerald-800 px-4 sm:px-6 py-2.5 text-sm flex justify-between items-center no-print">
-            <span id="toastMessage">Changes saved successfully!</span>
-            <button onclick="hideToast()" class="text-emerald-600 hover:text-emerald-800 font-bold px-2">&times;</button>
-        </div>
-
-        <!-- Mobile Scrollable Spreadsheet Table -->
-        <div class="p-2 sm:p-6 overflow-x-auto max-h-[70vh] sm:max-h-none">
-            <table class="w-full border-collapse border border-slate-300 text-center text-sm sm:text-base">
-                <thead>
-                    <tr class="bg-emerald-600 text-white uppercase text-xs sm:text-sm tracking-wider sticky top-0 shadow-sm">
-                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center w-10 sm:w-16">#</th>
-                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Payment Date</th>
-                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Month-Year</th>
-                        <th class="border border-slate-300 px-2 sm:px-4 py-3 text-center">Amount</th>
-                        <th class="border border-slate-300 px-2 py-3 text-center w-12 sm:w-20 no-print">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody" class="divide-y divide-slate-200">
-                    <!-- Rows dynamic insertion -->
-                </tbody>
-                <tfoot>
-                    <tr class="bg-slate-100 font-bold text-slate-900 sticky bottom-0 border-t-2 border-emerald-600">
-                        <td colspan="3" class="border border-slate-300 px-4 py-3 text-center uppercase text-xs sm:text-sm tracking-wider">Total Sum:</td>
-                        <td id="totalAmount" class="border border-slate-300 px-4 py-3 text-center text-emerald-700 font-extrabold text-base sm:text-lg">0</td>
-                        <td class="border border-slate-300 px-2 py-3 no-print"></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-
-        <!-- Footer Info -->
-        <div class="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 py-3 text-xs text-slate-500 text-center sm:text-left">
-            <p>💡 Tip: Tap any cell to edit directly. Data auto-saves to your local browser.</p>
-        </div>
-
-    </div>
-
-    <script>
-        const defaultData = [
-            { month: "Jan-23", amount: 500, date: "28/12/2022" },
-            { month: "Feb-23", amount: 500, date: "28/12/2023" },
-            { month: "Mar-23", amount: 500, date: "28/12/2024" },
-            { month: "Apr-23", amount: 500, date: "28/12/2025" },
-            { month: "May-23", amount: 500, date: "28/12/2026" },
-            { month: "Jun-23", amount: 500, date: "28/12/2027" },
-            { month: "Jul-23", amount: 500, date: "31/07/2023" },
-            { month: "Aug-23", amount: 500, date: "31/07/2023" },
-            { month: "Sep-23", amount: 500, date: "31/07/2023" },
-            { month: "Oct-23", amount: 500, date: "31/07/2023" },
-            { month: "Nov-23", amount: 500, date: "31/07/2023" },
-            { month: "Dec-23", amount: 500, date: "31/07/2023" },
-            { month: "Jan-24", amount: 500, date: "19/03/2024" },
-            { month: "Feb-24", amount: 500, date: "19/03/2024" },
-            { month: "Mar-24", amount: 500, date: "19/03/2024" },
-            { month: "Apr-24", amount: 500, date: "04/04/2024" },
-            { month: "May-24", amount: 500, date: "10/06/2024" },
-            { month: "Jun-24", amount: 500, date: "10/06/2024" },
-            { month: "Jul-24", amount: 500, date: "10/06/2024" },
-            { month: "Aug-24", amount: 1000, date: "02/08/2024" },
-            { month: "Sep-24", amount: 1000, date: "19/09/2024" },
-            { month: "Oct-24", amount: 1000, date: "20/12/2024" },
-            { month: "Nov-24", amount: 1000, date: "20/12/2024" },
-            { month: "Dec-24", amount: 1000, date: "20/12/2024" },
-            { month: "Jan-25", amount: 1000, date: "20/12/2024" },
-            { month: "Feb-25", amount: 1000, date: "04/02/2025" },
-            { month: "Mar-25", amount: 1000, date: "23/3/2025" },
-            { month: "Apr-25", amount: 1000, date: "04/05/2025" },
-            { month: "May-25", amount: 1000, date: "04/05/2025" },
-            { month: "Jun-25", amount: 1000, date: "07/08/2025" },
-            { month: "Jul-25", amount: 1000, date: "07/08/2025" },
-            { month: "Aug-25", amount: 1000, date: "07/08/2025" },
-            { month: "Sep-25", amount: 1000, date: "07/08/2025" },
-            { month: "Oct-25", amount: 1000, date: "10/12/2025" },
-            { month: "Nov-25", amount: 1000, date: "10/12/2025" },
-            { month: "Dec-25", amount: 1000, date: "10/12/2025" },
-            { month: "Jan-26", amount: 1000, date: "17/04/2026" },
-            { month: "Feb-26", amount: 1000, date: "17/04/2026" },
-            { month: "Mar-26", amount: 1000, date: "17/04/2026" },
-            { month: "Apr-26", amount: 1000, date: "17/04/2026" },
-            { month: "May-26", amount: 1000, date: "17/04/2026" },
-            { month: "Jun-26", amount: 1000, date: "17/04/2026" },
-            { month: "Jul-26", amount: 1000, date: "04/10/2026" },
-            { month: "Aug-26", amount: 1000, date: "04/10/2026" },
-            { month: "Sep-26", amount: 1000, date: "04/10/2026" },
-            { month: "Oct-26", amount: 1000, date: "04/10/2026" },
-            { month: "Nov-26", amount: 0, date: "" },
-            { month: "Dec-26", amount: 0, date: "" },
-            { month: "Jan-27", amount: 0, date: "" },
-            { month: "Feb-27", amount: 0, date: "" },
-            { month: "Mar-27", amount: 0, date: "" },
-            { month: "Apr-27", amount: 0, date: "" },
-            { month: "May-27", amount: 0, date: "" },
-            { month: "Jun-27", amount: 0, date: "" },
-            { month: "Jul-27", amount: 0, date: "" },
-            { month: "Aug-27", amount: 0, date: "" },
-            { month: "Sep-27", amount: 0, date: "" },
-            { month: "Oct-27", amount: 0, date: "" },
-            { month: "Nov-27", amount: 0, date: "" },
-            { month: "Dec-27", amount: 0, date: "" },
-            { month: "Jan-28", amount: 0, date: "" }
-        ];
-
-        let records = [];
-
-        window.onload = function() {
-            loadFromStorage();
-            renderTable();
-        };
-
-        function loadFromStorage() {
-            const savedData = localStorage.getItem('payment_records_data');
-            if (savedData) {
-                try {
-                    records = JSON.parse(savedData);
-                } catch (e) {
-                    records = [...defaultData];
-                }
-            } else {
-                records = [...defaultData];
-            }
-        }
-
-        function saveToStorage() {
-            localStorage.setItem('payment_records_data', JSON.stringify(records));
-            showToast("Auto-saved to browser storage.");
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-
-            let totalSum = 0;
-
-            records.forEach((record, index) => {
-                const amt = parseFloat(record.amount) || 0;
-                totalSum += amt;
-
-                const tr = document.createElement('tr');
-                tr.className = index % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50/60 hover:bg-slate-100/80';
-                
-                tr.innerHTML = `
-                    <td class="border border-slate-300 px-2 sm:px-4 py-2 text-center text-slate-400 text-xs">${index + 1}</td>
-                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
-                        <input type="text" value="${escapeHtml(record.date)}" 
-                            onchange="updateRecord(${index}, 'date', this.value)" 
-                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                    </td>
-                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
-                        <input type="text" value="${escapeHtml(record.month)}" 
-                            onchange="updateRecord(${index}, 'month', this.value)" 
-                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-                    </td>
-                    <td class="border border-slate-300 px-1 sm:px-2 py-1.5 text-center">
-                        <input type="number" step="any" value="${record.amount}" 
-                            onchange="updateRecord(${index}, 'amount', this.value)" 
-                            class="w-full text-center bg-transparent px-1 py-1 rounded focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition font-medium">
-                    </td>
-                    <td class="border border-slate-300 px-1 py-1.5 text-center no-print">
-                        <button onclick="deleteRow(${index})" title="Delete row" class="text-slate-400 hover:text-red-600 active:text-red-700 p-1 rounded transition">
-                            <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            document.getElementById('totalAmount').textContent = totalSum.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
-        }
-
-        function updateRecord(index, field, value) {
-            records[index][field] = field === 'amount' ? (value === '' ? 0 : parseFloat(value)) : value;
-            saveToStorage();
-            renderTable();
-        }
-
-        function addRow() {
-            records.push({ month: "New Month", amount: 0, date: "" });
-            saveToStorage();
-            renderTable();
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-
-        function deleteRow(index) {
-            records.splice(index, 1);
-            saveToStorage();
-            renderTable();
-        }
-
-        function exportBackup() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(records, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            const dateStr = new Date().toISOString().slice(0, 10);
-            downloadAnchor.setAttribute("download", `Al_Nur_Jame_Mosque_payments_${dateStr}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-            showToast("Backup file downloaded successfully.");
-        }
-
-        function importBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const parsedData = JSON.parse(e.target.result);
-                    if (Array.isArray(parsedData)) {
-                        records = parsedData;
-                        saveToStorage();
-                        renderTable();
-                        showToast("Data restored successfully from backup!");
-                    } else {
-                        alert("Invalid backup file format.");
-                    }
-                } catch (err) {
-                    alert("Error parsing backup JSON file.");
-                }
-                event.target.value = '';
-            };
-            reader.readAsText(file);
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const messageEl = document.getElementById('toastMessage');
-            messageEl.textContent = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3500);
-        }
-
-        function hideToast() {
-            document.getElementById('toast').classList.add('hidden');
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
+<body>
+<main class="page">
+  <header class="top">
+    <div class="bism">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="bism-bn">(পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে শুরু করছি)</div>
+    <div class="divider">&#10022;</div>
+    <h1 data-i="name">Al Nur Jame Mosque</h1>
+    <p class="sub" data-i="monthly">Monthly Payment</p>
+    <p class="addr" data-i="addr"></p>
+    <div class="moon"></div>
+    <svg class="sky" viewBox="0 0 800 96" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="#050a20"><rect y="84" width="800" height="12"/><rect x="340" y="72" width="120" height="14"/><path d="M340 74C340 28 460 28 460 74Z"/><rect x="399" y="14" width="2" height="22"/><circle cx="400" cy="12" r="4"/><path d="M150 84C150 62 192 62 192 84Z"/><path d="M608 84C608 62 650 62 650 84Z"/><rect x="236" y="30" width="14" height="56"/><path d="M233 30Q243 8 253 30Z"/><rect x="242" y="0" width="2" height="12"/><rect x="232" y="48" width="22" height="4"/><rect x="550" y="30" width="14" height="56"/><path d="M547 30Q557 8 567 30Z"/><rect x="556" y="0" width="2" height="12"/><rect x="546" y="48" width="22" height="4"/><rect x="86" y="52" width="10" height="36"/><path d="M84 52Q91 38 98 52Z"/><rect x="704" y="52" width="10" height="36"/><path d="M702 52Q709 38 716 52Z"/><rect x="190" y="74" width="46" height="12"/><rect x="564" y="74" width="46" height="12"/></g></svg>
+  </header>
+  <section class="stats">
+    <div class="stat main"><small data-i="total_paid">Total paid</small><b id="sumTotal">0</b></div>
+    <div class="stat"><small data-i="months_paid">Months paid</small><b id="sumCount">0</b></div>
+    <div class="stat"><small data-i="latest">Latest month</small><b id="sumLast">-</b></div>
+  </section>
+  <div class="toolbar no-print">
+    <button class="btn solid" onclick="addRow()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg><span data-i="add">Add row</span></button>
+    <button class="btn" onclick="exportBackup()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 11l4 4 4-4M12 4v11"/></svg><span data-i="backup">Backup</span></button>
+    <label class="btn"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 8l-4-4-4 4M12 4v11"/></svg><span data-i="restore">Restore</span><input type="file" accept=".json" onchange="importBackup(event)" hidden></label>
+    <button class="btn" onclick="toggleLang()" id="langBtn" aria-label="Language">English</button>
+    <button class="btn" onclick="window.print()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 9V4h10v5M7 17H5a2 2 0 01-2-2v-4a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2h-2M7 14h10v6H7z"/></svg><span data-i="print">Print / PDF</span></button>
+  </div>
+  <div id="toast" class="no-print"><span id="toastMsg"></span><button onclick="hideToast()" aria-label="Close">&times;</button></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th data-i="th_date">Payment Date</th><th data-i="th_month">Month-Year</th><th data-i="th_amt">Amount</th><th class="no-print"></th></tr></thead>
+      <tbody id="tableBody"></tbody>
+      <tfoot><tr><td colspan="3" data-i="total">Total</td><td class="t" id="totalAmount">0</td><td class="no-print"></td></tr></tfoot>
+    </table>
+  </div>
+  <p class="foot no-print"><b>جزاكم الله خيرا</b><br><span data-i="tip"></span></p>
+</main>
+<script>
+const T={en:{name:'Al Nur Jame Mosque',monthly:'Monthly Payment',addr:'Hazi Chan Miah Maler Bari, South Raipur, Raipur, Lakshmipur, Bangladesh (ZIP: 3710)',total_paid:'Total paid',months_paid:'Months paid',latest:'Latest month',add:'Add row',backup:'Backup',restore:'Restore',print:'Print / PDF',th_date:'Payment Date',th_month:'Month-Year',th_amt:'Amount',total:'Total',tip:'Tap any cell to edit. Changes save automatically in this browser.',empty:'No payments yet. Press "Add row" to record the first one.',saved:'Saved.',backed:'Backup downloaded.',restored:'Backup restored.',bad:'Invalid backup file.',unread:'Could not read the backup file.',newmonth:'New Month',lang:'বাংলা'},
+bn:{name:'আল নূর জামে মসজিদ',monthly:'মাসিক পেমেন্ট',addr:'হাজী চান মিয়া মালের বাড়ি, দক্ষিণ রায়পুর, রায়পুর, লক্ষ্মীপুর, বাংলাদেশ (জিপ: ৩৭১০)',total_paid:'মোট জমা',months_paid:'পরিশোধিত মাস',latest:'সর্বশেষ মাস',add:'সারি যোগ',backup:'ব্যাকআপ',restore:'রিস্টোর',print:'প্রিন্ট / পিডিএফ',th_date:'পেমেন্টের তারিখ',th_month:'মাস-বছর',th_amt:'পরিমাণ',total:'সর্বমোট',tip:'যেকোনো ঘরে ট্যাপ করে এডিট করুন। পরিবর্তন স্বয়ংক্রিয়ভাবে এই ব্রাউজারে সেভ হয়।',empty:'এখনো কোনো পেমেন্ট নেই। প্রথমটি যোগ করতে "সারি যোগ" চাপুন।',saved:'সেভ হয়েছে।',backed:'ব্যাকআপ ডাউনলোড হয়েছে।',restored:'ব্যাকআপ রিস্টোর হয়েছে।',bad:'ব্যাকআপ ফাইলের ফরম্যাট ঠিক নেই।',unread:'ব্যাকআপ ফাইল পড়া যায়নি।',newmonth:'নতুন মাস',lang:'English'}};
+let lang=localStorage.getItem('mosque_lang')||'bn';
+const t=k=>T[lang][k];
+const nf=n=>Number(n).toLocaleString(lang==='bn'?'bn-BD':'en-US',{maximumFractionDigits:2});
+function applyLang(){
+  document.documentElement.lang=lang;document.body.classList.toggle('bn',lang==='bn');
+  document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+  document.getElementById('langBtn').textContent=t('lang');
+}
+function toggleLang(){lang=lang==='bn'?'en':'bn';localStorage.setItem('mosque_lang',lang);applyLang();render();}
+const early2021=[{month:"Jan-21",amount:500,date:"31/01/2021"},{month:"Feb-21",amount:500,date:"28/02/2021"},{month:"Mar-21",amount:500,date:"31/03/2021"},{month:"Apr-21",amount:500,date:"30/04/2021"},{month:"May-21",amount:500,date:"31/05/2021"},{month:"Jun-21",amount:500,date:"30/06/2021"},{month:"Jul-21",amount:500,date:"31/07/2021"},{month:"Aug-21",amount:500,date:"31/08/2021"},{month:"Sep-21",amount:500,date:"30/09/2021"},{month:"Oct-21",amount:500,date:"31/10/2021"},{month:"Nov-21",amount:500,date:"30/11/2021"},{month:"Dec-21",amount:500,date:"31/12/2021"}];
+const defaultData=[...early2021,{month:"Jan-23",amount:500,date:"28/12/2022"},{month:"Feb-23",amount:500,date:"28/12/2023"},{month:"Mar-23",amount:500,date:"28/12/2024"},{month:"Apr-23",amount:500,date:"28/12/2025"},{month:"May-23",amount:500,date:"28/12/2026"},{month:"Jun-23",amount:500,date:"28/12/2027"},{month:"Jul-23",amount:500,date:"31/07/2023"},{month:"Aug-23",amount:500,date:"31/07/2023"},{month:"Sep-23",amount:500,date:"31/07/2023"},{month:"Oct-23",amount:500,date:"31/07/2023"},{month:"Nov-23",amount:500,date:"31/07/2023"},{month:"Dec-23",amount:500,date:"31/07/2023"},{month:"Jan-24",amount:500,date:"19/03/2024"},{month:"Feb-24",amount:500,date:"19/03/2024"},{month:"Mar-24",amount:500,date:"19/03/2024"},{month:"Apr-24",amount:500,date:"04/04/2024"},{month:"May-24",amount:500,date:"10/06/2024"},{month:"Jun-24",amount:500,date:"10/06/2024"},{month:"Jul-24",amount:500,date:"10/06/2024"},{month:"Aug-24",amount:1000,date:"02/08/2024"},{month:"Sep-24",amount:1000,date:"19/09/2024"},{month:"Oct-24",amount:1000,date:"20/12/2024"},{month:"Nov-24",amount:1000,date:"20/12/2024"},{month:"Dec-24",amount:1000,date:"20/12/2024"},{month:"Jan-25",amount:1000,date:"20/12/2024"},{month:"Feb-25",amount:1000,date:"04/02/2025"},{month:"Mar-25",amount:1000,date:"23/3/2025"},{month:"Apr-25",amount:1000,date:"04/05/2025"},{month:"May-25",amount:1000,date:"04/05/2025"},{month:"Jun-25",amount:1000,date:"07/08/2025"},{month:"Jul-25",amount:1000,date:"07/08/2025"},{month:"Aug-25",amount:1000,date:"07/08/2025"},{month:"Sep-25",amount:1000,date:"07/08/2025"},{month:"Oct-25",amount:1000,date:"10/12/2025"},{month:"Nov-25",amount:1000,date:"10/12/2025"},{month:"Dec-25",amount:1000,date:"10/12/2025"},{month:"Jan-26",amount:1000,date:"17/04/2026"},{month:"Feb-26",amount:1000,date:"17/04/2026"},{month:"Mar-26",amount:1000,date:"17/04/2026"},{month:"Apr-26",amount:1000,date:"17/04/2026"},{month:"May-26",amount:1000,date:"17/04/2026"},{month:"Jun-26",amount:1000,date:"17/04/2026"},{month:"Jul-26",amount:1000,date:"04/10/2026"},{month:"Aug-26",amount:1000,date:"04/10/2026"},{month:"Sep-26",amount:1000,date:"04/10/2026"},{month:"Oct-26",amount:1000,date:"04/10/2026"}];
+const KEY='payment_records_data';
+let records=[];
+window.onload=()=>{load();applyLang();render();};
+function load(){
+  let s=localStorage.getItem(KEY);
+  try{records=s?JSON.parse(s):[...defaultData];}catch(e){records=[...defaultData];}
+  if(!localStorage.getItem('payment_cleaned_v2')){
+    records=records.filter(r=>(parseFloat(r.amount)||0)>0);
+    localStorage.setItem(KEY,JSON.stringify(records));
+    localStorage.setItem('payment_cleaned_v2','1');
+  }
+  if(!localStorage.getItem('payment_added_2021')){
+    if(!records.some(r=>/-21$/.test(r.month))){records=[...early2021,...records];}
+    localStorage.setItem(KEY,JSON.stringify(records));
+    localStorage.setItem('payment_added_2021','1');
+  }
+  sortRecords();
+}
+function sortRecords(){
+  const MN=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  const dt=r=>{const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(r.date||'').trim());return m?Date.UTC(+m[3],+m[2]-1,+m[1]):Infinity;};
+  const mk=r=>{const m=/^([A-Za-z]{3})-(\d{2})$/.exec(String(r.month||'').trim());const i=m?MN.indexOf(m[1].toLowerCase()):-1;return m&&i>=0?(2000+ +m[2])*12+i:Infinity;};
+  records.sort((a,b)=>{const p=mk(a),q=mk(b);if(p!==q)return p<q?-1:1;const x=dt(a),y=dt(b);return x===y?0:(x<y?-1:1);});
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(records));toast(t('saved'));}
+function render(){
+  const tb=document.getElementById('tableBody');tb.innerHTML='';
+  let sum=0,count=0,last='-';
+  if(!records.length){tb.innerHTML='<tr><td colspan="5"><div class="empty">'+t('empty')+'</div></td></tr>';}
+  records.forEach((r,i)=>{
+    const a=parseFloat(r.amount)||0;sum+=a;
+    if(a>0){count++;last=r.month||'-';}
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="n">${i+1}</td>
+    <td><input value="${esc(r.date)}" aria-label="Payment date" onchange="upd(${i},'date',this.value)"></td>
+    <td><input value="${esc(r.month)}" aria-label="Month" onchange="upd(${i},'month',this.value)"></td>
+    <td><input class="amt" type="number" step="any" value="${r.amount}" aria-label="Amount" onchange="upd(${i},'amount',this.value)"></td>
+    <td class="no-print"><button class="del" title="Delete row" onclick="del(${i})"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 7m5 4v6m4-6v6M9 7V4h6v3M4 7h16"/></svg></button></td>`;
+    tb.appendChild(tr);
+  });
+  const f=nf(sum);
+  document.getElementById('totalAmount').textContent=f;
+  document.getElementById('sumTotal').textContent=f;
+  document.getElementById('sumCount').textContent=nf(count);
+  document.getElementById('sumLast').textContent=last;
+}
+function upd(i,k,v){records[i][k]=k==='amount'?(v===''?0:parseFloat(v)):v;sortRecords();save();render();}
+function addRow(){records.push({month:t('newmonth'),amount:0,date:""});save();render();const w=document.querySelector('.tbl-wrap');w.scrollTo({top:w.scrollHeight,behavior:'smooth'});}
+function del(i){records.splice(i,1);save();render();}
+function exportBackup(){
+  const a=document.createElement('a');
+  a.href='data:text/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(records,null,2));
+  a.download='Al_Nur_Jame_Mosque_payments_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();a.remove();toast(t('backed'));
+}
+function importBackup(e){
+  const f=e.target.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){records=d;sortRecords();save();render();toast(t('restored'));}else alert(t('bad'));}catch(x){alert(t('unread'));}e.target.value='';};
+  rd.readAsText(f);
+}
+let tt;
+function toast(m){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=m;t.style.display='flex';clearTimeout(tt);tt=setTimeout(hideToast,2500);}
+function hideToast(){document.getElementById('toast').style.display='none';}
+function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'';}
+</script>
 </body>
 </html>
