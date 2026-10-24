@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Al Nur Jame Mosque - Monthly Payment</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@500;700&family=Noto+Kufi+Arabic:wght@600;800&family=Cormorant+Garamond:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -61,6 +61,43 @@ body{font-family:'Inter','Hind Siliguri',sans-serif}
 .sub{font-family:'Inter','Hind Siliguri',sans-serif;font-weight:600;font-size:13px}
 .bn .sub,.bn th{letter-spacing:0;text-transform:none}
 .bn th{font-family:'Hind Siliguri',sans-serif;font-size:15px}
+
+/* responsive */
+@media(max-width:520px){.top{padding-top:62px}}
+html{-webkit-text-size-adjust:100%}
+.page{overflow:hidden;overflow:clip}
+.bism{display:inline-block;max-width:100%}
+.btn{min-height:42px;justify-content:center}
+@media(min-width:900px){body{padding:40px 24px}.page{max-width:1000px}.stats{padding:0 28px}.toolbar{padding:24px 28px 8px}.toolbar .btn{padding:10px 20px}.tbl-wrap{margin:14px 28px 22px}td input{font-size:15.5px}.foot{padding-bottom:26px}}
+@media screen and (max-width:640px){
+ body{padding:8px}
+ .page{border-radius:22px}
+ .stats{gap:8px;padding:0 12px}
+ .stat{padding:10px 4px;min-width:0}
+ .stat b{font-size:clamp(17px,5.4vw,26px);overflow-wrap:anywhere}
+ .toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px 12px 4px}
+ .toolbar .btn{min-height:44px}.toolbar .btn.solid{grid-column:1/-1}
+ #toast{margin:8px 12px 0}
+ .tbl-wrap{max-height:none;overflow:visible;border:0;background:transparent;margin:12px 12px 8px}
+ table{min-width:0;display:block}
+ thead{display:none}
+ tbody{display:block}
+ tbody tr{display:grid;grid-template-columns:32px 1fr 1fr 42px;grid-template-areas:"n month amt del" ". date date .";gap:6px;align-items:end;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 8px;margin-bottom:10px}
+ tbody tr:nth-child(even),tbody tr:hover{background:#fff}
+ tbody tr.er{display:block;text-align:center}
+ td{display:block;padding:0;border:0;min-width:0}
+ td[data-label]::before{content:attr(data-label);display:block;font-size:11px;line-height:1.3;color:var(--muted);text-align:center;margin-bottom:3px}
+ td.n{grid-area:n;align-self:center;border-left:0;width:auto;text-align:center;font-size:15px}
+ td.c-month{grid-area:month}td.c-amt{grid-area:amt}td.c-date{grid-area:date}td.c-del{grid-area:del}
+ td input{font-size:16px;padding:11px 6px;border:1px solid var(--line);background:#f7f5ec;border-radius:10px}
+ td input.amt{font-size:17px}
+ .del{width:42px;height:42px;display:grid;place-items:center}
+ tfoot{display:block;position:sticky;bottom:max(8px,env(safe-area-inset-bottom));z-index:5;margin-top:4px}
+ tfoot tr{display:flex;justify-content:space-between;align-items:center;background:#fff;border:2px solid var(--gold);border-radius:16px;box-shadow:0 10px 24px -10px rgba(0,0,0,.45)}
+ tfoot td{display:block;position:static;border:0;background:none;padding:12px 16px}
+ tfoot td.no-print{display:none}
+ .foot{padding:6px 12px 20px}
+}
 </style>
 </head>
 <body>
@@ -104,6 +141,7 @@ let lang=localStorage.getItem('mosque_lang')||'bn';
 const t=k=>T[lang][k];
 const nf=n=>Number(n).toLocaleString(lang==='bn'?'bn-BD':'en-US',{maximumFractionDigits:2});
 function applyLang(){
+  setTimeout(()=>{if(typeof fitBism==='function')fitBism();},0);
   document.documentElement.lang=lang;document.body.classList.toggle('bn',lang==='bn');
   document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
   document.getElementById('langBtn').textContent=t('lang');
@@ -113,7 +151,16 @@ const early2021=[{month:"Jan-21",amount:500,date:"31/01/2021"},{month:"Feb-21",a
 const defaultData=[...early2021,{month:"Jan-23",amount:500,date:"28/12/2022"},{month:"Feb-23",amount:500,date:"28/12/2023"},{month:"Mar-23",amount:500,date:"28/12/2024"},{month:"Apr-23",amount:500,date:"28/12/2025"},{month:"May-23",amount:500,date:"28/12/2026"},{month:"Jun-23",amount:500,date:"28/12/2027"},{month:"Jul-23",amount:500,date:"31/07/2023"},{month:"Aug-23",amount:500,date:"31/07/2023"},{month:"Sep-23",amount:500,date:"31/07/2023"},{month:"Oct-23",amount:500,date:"31/07/2023"},{month:"Nov-23",amount:500,date:"31/07/2023"},{month:"Dec-23",amount:500,date:"31/07/2023"},{month:"Jan-24",amount:500,date:"19/03/2024"},{month:"Feb-24",amount:500,date:"19/03/2024"},{month:"Mar-24",amount:500,date:"19/03/2024"},{month:"Apr-24",amount:500,date:"04/04/2024"},{month:"May-24",amount:500,date:"10/06/2024"},{month:"Jun-24",amount:500,date:"10/06/2024"},{month:"Jul-24",amount:500,date:"10/06/2024"},{month:"Aug-24",amount:1000,date:"02/08/2024"},{month:"Sep-24",amount:1000,date:"19/09/2024"},{month:"Oct-24",amount:1000,date:"20/12/2024"},{month:"Nov-24",amount:1000,date:"20/12/2024"},{month:"Dec-24",amount:1000,date:"20/12/2024"},{month:"Jan-25",amount:1000,date:"20/12/2024"},{month:"Feb-25",amount:1000,date:"04/02/2025"},{month:"Mar-25",amount:1000,date:"23/3/2025"},{month:"Apr-25",amount:1000,date:"04/05/2025"},{month:"May-25",amount:1000,date:"04/05/2025"},{month:"Jun-25",amount:1000,date:"07/08/2025"},{month:"Jul-25",amount:1000,date:"07/08/2025"},{month:"Aug-25",amount:1000,date:"07/08/2025"},{month:"Sep-25",amount:1000,date:"07/08/2025"},{month:"Oct-25",amount:1000,date:"10/12/2025"},{month:"Nov-25",amount:1000,date:"10/12/2025"},{month:"Dec-25",amount:1000,date:"10/12/2025"},{month:"Jan-26",amount:1000,date:"17/04/2026"},{month:"Feb-26",amount:1000,date:"17/04/2026"},{month:"Mar-26",amount:1000,date:"17/04/2026"},{month:"Apr-26",amount:1000,date:"17/04/2026"},{month:"May-26",amount:1000,date:"17/04/2026"},{month:"Jun-26",amount:1000,date:"17/04/2026"},{month:"Jul-26",amount:1000,date:"04/10/2026"},{month:"Aug-26",amount:1000,date:"04/10/2026"},{month:"Sep-26",amount:1000,date:"04/10/2026"},{month:"Oct-26",amount:1000,date:"04/10/2026"}];
 const KEY='payment_records_data';
 let records=[];
-window.onload=()=>{load();applyLang();render();};
+function fitBism(){
+  const el=document.querySelector('.bism');if(!el||!el.parentElement)return;
+  el.style.fontSize='100px';
+  const w=el.getBoundingClientRect().width||1;
+  const avail=el.parentElement.clientWidth-(window.innerWidth<520?32:80);
+  el.style.fontSize=Math.max(18,Math.min(68,avail/w*100))+'px';
+}
+window.addEventListener('resize',fitBism);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitBism);
+window.onload=()=>{load();applyLang();render();fitBism();};
 function load(){
   let s=localStorage.getItem(KEY);
   try{records=s?JSON.parse(s):[...defaultData];}catch(e){records=[...defaultData];}
@@ -139,16 +186,16 @@ function save(){localStorage.setItem(KEY,JSON.stringify(records));toast(t('saved
 function render(){
   const tb=document.getElementById('tableBody');tb.innerHTML='';
   let sum=0,count=0,last='-';
-  if(!records.length){tb.innerHTML='<tr><td colspan="5"><div class="empty">'+t('empty')+'</div></td></tr>';}
+  if(!records.length){tb.innerHTML='<tr class="er"><td colspan="5"><div class="empty">'+t('empty')+'</div></td></tr>';}
   records.forEach((r,i)=>{
     const a=parseFloat(r.amount)||0;sum+=a;
     if(a>0){count++;last=r.month||'-';}
     const tr=document.createElement('tr');
     tr.innerHTML=`<td class="n">${i+1}</td>
-    <td><input value="${esc(r.date)}" aria-label="Payment date" onchange="upd(${i},'date',this.value)"></td>
-    <td><input value="${esc(r.month)}" aria-label="Month" onchange="upd(${i},'month',this.value)"></td>
-    <td><input class="amt" type="number" step="any" value="${r.amount}" aria-label="Amount" onchange="upd(${i},'amount',this.value)"></td>
-    <td class="no-print"><button class="del" title="Delete row" onclick="del(${i})"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 7m5 4v6m4-6v6M9 7V4h6v3M4 7h16"/></svg></button></td>`;
+    <td class="c-date" data-label="${t('th_date')}"><input value="${esc(r.date)}" aria-label="Payment date" onchange="upd(${i},'date',this.value)"></td>
+    <td class="c-month" data-label="${t('th_month')}"><input value="${esc(r.month)}" aria-label="Month" onchange="upd(${i},'month',this.value)"></td>
+    <td class="c-amt" data-label="${t('th_amt')}"><input class="amt" type="number" step="any" value="${r.amount}" aria-label="Amount" onchange="upd(${i},'amount',this.value)"></td>
+    <td class="no-print c-del"><button class="del" title="Delete row" onclick="del(${i})"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 7m5 4v6m4-6v6M9 7V4h6v3M4 7h16"/></svg></button></td>`;
     tb.appendChild(tr);
   });
   const f=nf(sum);
